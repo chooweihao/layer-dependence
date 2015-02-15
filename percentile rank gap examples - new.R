@@ -77,24 +77,6 @@ plot(u,cex=0.01);
 
 
 
-#factor1 - gaussian
-n=100000; 
-e1=rnorm(n,0,1); e2=rnorm(n,0,1);
-f=rnorm(n,0,1);
-x=f+e1; y=f+e2;
-u1=rank(x)/n; u2=rank(y)/n;
-u=cbind(u1,u2);
-
-#factor2 - chi square 1
-n=100000; 
-e1=rnorm(n,0,1); e2=rnorm(n,0,1);
-f=rgamma(n,0.5,0.5);
-x=f+e1; y=f+e2;
-u1=rank(x)/n; u2=rank(y)/n;
-u=cbind(u1,u2);
-
-
-
 #compute marginal correlation
 data=u; u1=data[,1]; u2=data[,2]; rho=cor(u1,u2);
 n=100
@@ -109,20 +91,15 @@ marcor[i]=cov(u2,ind1)/cov(u1,ind1);
 }
 
 setEPS();
-postscript("factor2.eps")
+postscript("structural3.eps")
 par(mar=c(5,5,1,1));
 plot(u1[1:1000],u2[1:1000],type="p",cex=1,
-xlab=expression(paste(list(u))),ylab=expression(paste(list(v))),cex.lab=2);
+xlab=expression(paste(list(u,alpha))),ylab=expression(paste(list(v,l[alpha]))),cex.lab=2);
 lines(cutoff,marcor,lty=1,lwd=5,col="red");
 #lines(cutoff,rho*rep(1,n),lty=2,lwd=5);
 #lines(cutoff,rep(0.65,n),lty=2,lwd=5,col="green");
 #lines(rep(0.65,n),cutoff,lty=2,lwd=5,col="green");
 dev.off();
-
-
-
-
-
 
 
 
