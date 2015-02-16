@@ -132,7 +132,7 @@ The literature suggests several approaches on fitting a copula to past data. If 
 
 \section{Layer dependence}\label{sintroduction}
 
-Suppose $u$ and $v$ are percentile ranks of continuous random variables $x$ and $y$.  Then $(u,v)$ has standard uniform marginals and its joint distribution $C$ is a copula \citep{nelson1999ic}.
+Suppose $u$ and $v$ are percentile ranks of continuous random variables $x$ and $y$.  Then $(u,v)$ has standard uniform marginals and joint distribution $C$, a copula \citep{nelson1999ic}.
 
 The $\alpha$--layer dependence  between $v$ and the $\alpha$--layer of $u$ is
 \begin{equation}\label{definition}
@@ -148,7 +148,7 @@ Expanding the covariances  in \eref{definition} and manipulating yields
 \end{equation}
 where $\E$ calculates expectations using $C$. The middle expression in \eref{gapexp} is the expected change in $v$ relative to the expected change in $u$ when $u$ crosses $\alpha$. The latter is $0.5$ for all $\alpha$, yielding the final expression in \eref{gapexp}. Hence large $\ell_\alpha$ implies $v$ is sensitive to movements in $u$ across $\alpha$, indicating strong dependence between $v$ and $u$ at $\alpha$. When $\ell_\alpha=0$, $v$ is unchanged on average when $u$ crosses $\alpha$, and $u$ and $v$ are independent at $\alpha$.
 
-Layer dependence is intimately connected to the identity
+Layer dependence relates  to the identity
 \begin{equation}\label{decompose}
 u= \int_0^1 ( u > \alpha )\de\alpha\ .
 \end{equation}
@@ -160,7 +160,7 @@ Using  \eref{definition} and \eref{decompose}, Spearman's correlation between $u
 \rho_S\equiv \cor(u,v) =\frac{\cov(u,v)}{\var(u)}=\frac{\int _0^1\cov\{v,(u>\alpha)\}\de\alpha}{1/12}
 =\Ex(\ell_\alpha)\; .
 \end{equation}
-where the expectation $\Ex$ is calculated over $0\le\alpha\le 1$ using density $6\alpha(1-\alpha)$. Hence Spearman's correlation averages $\alpha$--layer dependence using a certain density on $\alpha$. The density integrates to $1$, has minimum $0$ at $\alpha=0$ and $1$, and increases symmetrically to maximum at $\alpha=0.5$. Varying the density leads to different emphasis on different areas of the relationship between $u$ and $v$, and yields alternative measures of overall dependence. For example using the density $n\alpha^{n-1}$ where $n>0$ puts increasing weight on upper tail dependence. This is further explored in \sref{saltoverall}.
+where the expectation $\Ex$ is calculated over $0\le\alpha\le 1$ using density $6\alpha(1-\alpha)$.  The density integrates to $1$, has minimum $0$ at $\alpha=0$ and $1$, and increases symmetrically to maximum at $\alpha=0.5$. Modifying the density leads to different emphasis on different areas of the relationship between $u$ and $v$, and yields alternative measures of overall dependence. For example using the density $n\alpha^{n-1}$ where $n>0$ puts increasing weight on upper tail dependence. This is further explored in \sref{saltoverall}.
 
 
 \begin{comment}
@@ -223,7 +223,7 @@ $$
 $$
 \delta_\alpha \equiv\E\left\{(|u-v|)|(u-\alpha)(v-\alpha)<0\right\}  \; .
 $$
-A proof of \eref{decomposition} is shown below.  The correlation $-1\leq\gamma_\alpha\leq 1$ measures the tendency for $(u,v)$ to be discordant at $\alpha$: opposite signs on $u-\alpha$ and $v-\alpha$.  The expectation $0\leq \delta_\alpha\leq 1$ measures the dispersion between discordant points $u$ and $v$ at $\alpha$.
+A proof of \eref{decomposition} is  below.  The correlation $-1\leq\gamma_\alpha\leq 1$ measures the tendency for $(u,v)$ to be discordant at $\alpha$: opposite signs on $u-\alpha$ and $v-\alpha$.  The expectation $0\leq \delta_\alpha\leq 1$ measures the dispersion between discordant points $u$ and $v$ at $\alpha$.
 
 The proof of \eref{decomposition} follows from
 $$
@@ -564,7 +564,7 @@ With Archimedean copulas \citep{mcneil2005qrm} $C(\alpha,\beta) =\psi^-\left\{\p
 
 \section{Copula fitting using layer dependence}\label{sfitting}
 
-The following proposes an approach to fit copulas to data using layer dependence. The approach produces a better fit than past data, and easily incorporates expert opinion on the dependence structure. The approach is illustrated using historical NASDAQ and FTSE stock returns.
+This section proposes fitting a copula  to data using layer dependence. The approach can  incorporate expert opinion on the dependence structure. The approach is illustrated using historical NASDAQ and FTSE stock returns.
 
 \subsection{Fitting steps}
 
@@ -573,11 +573,11 @@ A copula fitting procedure based on layer dependence is as follows:
 \begin{enumerate}
 \item Calculate layer dependence curve with desired granularity from percentile rank data.
 
-\item Smooth calculated layer dependence curve either parametrically or semi-parametrically to remove random error in past data.
+\item Smooth calculated layer dependence curve either parametrically or semi-parametrically.
 
 \item Refine layer dependence using expert knowledge, such as existence and level of tail dependence, and overall dependence.
 
-\item Fit a copula to refined layer dependence curve, for example using the factor copula model described in the next subsection.
+\item Fit a copula given the fitted layer dependence curve, for example using the factor copula model described in the next subsection.
 \end{enumerate}
 The layer dependence approach offers two advantages over fitting parametric copulas. Firstly layer dependence reflects the dependence structure exhibited in past data, whereas parametric copulas, with their relatively restricted dependence structures, may not properly fit past data. Secondly, layer dependence accommodates expert knowledge of local dependence, whereas parametric copulas permit limited changes to the dependence structure once a parametric form is selected.
 
@@ -596,7 +596,7 @@ Suppose $s$ is a random variable. The factor copula model is
 u=F(s+\eps) \cq
 v=F(s+\eta)    \cq \eps, \eta \sim N(0,1) \ ,
 \end{equation}
-where $s$, $\eps$ and $\eta$ are independent and $F$ is the  distribution of the random variables in the brackets. Then both $u$ and $v$ are uniform and the joint distribution of $(u,v)$ is exchangeable. Exchangeability is assumed since most commonly used copulas, such as Archimedean copulas \citep{mcneil2005qrm}, are exchangeable. The factor copula model in \eref{factor} is made non-exchangeable for example by dropping either $\eps$ and $\eta$.
+where $s$, $\eps$ and $\eta$ are independent and $F$ is the  distribution of the random variables in the brackets. Then both $u$ and $v$ are uniform and the joint distribution of $(u,v)$ is exchangeable. Exchangeability is assumed since most commonly used copulas, such as Archimedean copulas \citep{mcneil2005qrm}, are exchangeable. The factor copula model in \eref{factor} is made non-exchangeable for example by dropping either $\eps$ or $\eta$.
 
 The common factor $s$ in \eref{factor} generates and controls layer dependence between $u$ and $v$. For example if $s$ is highly volatile and right skewed relative to noise terms $\eps$, $\eta$, then $u$ and $v$ are more dependent particularly in the upper tail. The two panels in \fref{ffactor} simulate factor copulas and their layer dependence curves assuming $s$ has standard normal and $\chi^2_1$ distributions. Standard normal $s$ generates a Gaussian copula, while a $\chi^2_1$ distribution implies movements in $u$ and $v$ close to $1$ are generated and controlled by $s$, implying upper tail dependence.
 
@@ -636,9 +636,9 @@ Step 1 can be simplified by computing $\hat \ell_{j/n}$ over a fewer number of p
 
 \subsection{Illustration using stock returns}
 
-The following illustrates layer dependence copula fitting by considering NASDAQ and FTSE returns. The top left panel in \fref{fmarketindex} plots percentile ranks of daily NASDAQ and FTSE returns from $1985$ and $2014$. Layer dependence calculated at every integer percentile and Spearman's correlation are shown in the same panel. Spearman's correlation is $0.4$, indicating moderate dependence between NASDAQ and FTSE returns. Layer dependence increases towards both tails, particularly in the lower tail. Hence major corrections in NASDAQ and FTSE tend to occur simultaneously, and negative corrections are more strongly dependent than positive corrections.
+The following illustrates layer dependence copula fitting using NASDAQ and FTSE returns. The top left panel in \fref{fmarketindex} plots percentile ranks of daily NASDAQ and FTSE returns from $1985$ and $2014$. Layer dependence  at every integer percentile and Spearman's correlation are shown in the same panel. Spearman's correlation is $0.4$, indicating moderate dependence between NASDAQ and FTSE returns. Layer dependence increases towards both tails, but more so in the lower tail. Hence major corrections in NASDAQ and FTSE tend to occur simultaneously, and negative corrections are more strongly dependent than positive corrections.
 
-The top right panel in \fref{fmarketindex} fits a factor copula to a smooth layer dependence curve passing through empirical values\footnote{The smoothing is performed by fitting a polynomial of order 4 using least squares estimation.}. Simulated values of the fitted factor copula are shown in the same panel. The bottom left panel fits a Gaussian copula to past data by matching Spearman's correlation. The Gaussian copula has a symmetric layer dependence curve, and hence does not capture the stronger lower tail dependence exhibited in NASDAQ and FTSE data. The same inadequacy applies to Student-$t$ and other elliptical copulas.
+The top right panel in \fref{fmarketindex} fits a factor copula to a smooth layer dependence curve passing through empirical values\footnote{The smoothing is performed by fitting a polynomial of order 4 using least squares estimation.}. Simulated values of the fitted factor copula are shown in the same panel. The bottom left panel fits a Gaussian copula to past data by matching Spearman's correlation. The Gaussian copula has a symmetric layer dependence curve, and hence does not capture the stronger lower tail dependence exhibited in NASDAQ and FTSE data.  Student-$t$ and other elliptical copulas would suffer from the same inadequacy.
 
 The bottom right panel in \fref{fmarketindex} plots the density of the common factor $s$ generating the fitted factor copula. Also shown is the density implicit in the fitted Gaussian copula. The density of $s$ is more peaked and left skewed, reflecting the stronger lower tail dependence and weak dependence in the centre.
 
@@ -1124,8 +1124,7 @@ $$
 where $z$, $c$, $u_0$ and $v_0$ are independent uniform. Direct calculation shows the layer dependence of $(u_*,v_*)$ is constant and equal to $0.5$. Hence model $(u,v)$ as a mixture of independent uniform random variables and $(u_*,v_*)$, with weights $1-2r$ and $2r$, respectively. The layer dependence of $(u,v)$ is $(1-2r)\times 0+2r\times 0.5=r$, as desired.
 \end{comment}
 
-
-\newpage
+\section*{References}
 
 \bibliography{PhD}
 
