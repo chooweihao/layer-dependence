@@ -100,9 +100,9 @@ Local dependence; rank dependence; conditional tail expectation; Spearman's corr
 \end{frontmatter}
 
 
-\section{Local dependence and layer dependence}
+\section{Local dependence and layer dependence}\label{sreview}
 
-Dependence between two variables generally varies  with percentile. For example extreme movements in two stock markets are likely be highly related  whereas minor fluctuations may be relatively independent. Natural catastrophes create significant insurance losses for several classes of business at the same time, while attritional losses between various classes are weakly dependent.
+Dependence between two variables generally varies  with percentile. For example extreme movements in two stock markets are likely to be highly related  whereas minor fluctuations may be relatively independent. Natural catastrophes create significant insurance losses for several classes of business at the same time, while attritional losses between various classes are weakly dependent.
 
 
 Local dependence measures aim to capture the dependence structure of a bivariate distribution. This contrasts with  measures of overall dependence such as Pearson correlation, Spearman's $\rho$ and Kendall's $\tau$ \citep{embrechts2002correlation}. Local dependence measures include the univariate tail concentration \citep{venter2002tails}, correlation curve \citep{bjerve1993correlation}, and bivariate measures by \cite{bairamov2003new}, \cite{jones1996local} and \cite{holland1987dependence}.
@@ -111,7 +111,7 @@ Local dependence measures aim to capture the dependence structure of a bivariate
 This paper introduces, illustrates and analyzes an alternate local dependence measure called  ``layer dependence." Layer dependence is the covariance between a random variable and a single ``layer" of another. Layer dependence is also the ``gap" between upper and lower conditional tail expectations. Random variables are replaced with their percentile rank transforms and layer dependence is calculated entirely from the copula underlying the joint distribution. Hence of interest is rank dependence rather than dependence between random variables in their original scale, as the latter is often distorted by marginal distributions.
 
 
-Layer dependence satisfies ``coherence" properties similar to Spearman's $\rho$: between $-1$ and $1$, constant and equal to $-1$, $0$ and $1$ for countermonotonic, independent and comonotonic random variables, sign switching when ranking order reverses, and taking on higher values when dependence is stronger. Taking a weighted average of layer dependence values across the joint distribution yields Spearman's $\rho$ and alternative coherent measures of overall dependence.
+Layer dependence satisfies ``coherence" properties similar to Spearman's $\rho$: it is between $-1$ and $1$, constant and equal to $-1$, $0$ and $1$ for countermonotonic, independent and comonotonic random variables, sign switching when the ranking order reverses, and taking on higher values when dependence is stronger. Taking a weighted average of layer dependence values across the joint distribution yields Spearman's $\rho$ and alternative coherent measures of overall dependence.
 
 
 Layer dependence provides a more appropriate and accurate measure of local dependence compared to existing measures. Higher dispersion from various points of the $45^\circ$ line reduces layer dependence and vice versa. Calculating layer dependence at the first instance from data or parametric copulas extracts essential and interpretable information -- the dependence structure. For a parametric copula, the implication of its parametric form and parameters on the dependence structure is not always apparent. Similar problems apply when past data is scarce.
@@ -133,38 +133,42 @@ The literature suggests several approaches on fitting a copula to past data. If 
 
 \section{Layer dependence -- motivation and definition}\label{sintroduction}
 
-Suppose $u$ and $v$ are percentile ranks of continuous random variables $x$ and $y$.  Then $(u,v)$ has standard uniform marginals and joint distribution $C$, a copula \citep{nelson1999ic}.
+Suppose $u$ and $v$ are percentile ranks of continuous random variables $x$ and $y$.  Then $(u,v)$ has standard uniform marginals and joint distribution $C$, a copula \citep{nelson1999ic}. Of interest is the dependence structure underlying $(x,y)$.
 
-Spearman's $\rho$ between $x$ and $y$ \citep{embrechts2002correlation} is a well established measure of overall rank dependence. Rank dependence is not distorted by marginal distributions unlike Pearson's correlation  
+Spearman's $\rho$ \citep{embrechts2002correlation} between $x$ and $y$  is a common measure of overall rank dependence, the dependence between percentile ranks $u$ and $v$. Rank dependence is not distorted by marginal distributions unlike for example Pearson's correlation \citep{mcneil2005qrm} which is generally not $\pm 1$ when $x$ and $y$ are perfectly dependent unless $x$ and $y$ are linear in one another. Spearman's $\rho$ can also be applied to estimate copula parameters using the method of moments (\cite{kojadinovic2010comparison}, \cite{bouye2000copulas}). However a drawback of Spearman's $\rho$ is that it does not capture local dependence which may vary across the joint distribution as explained in section \aref{sreview}. This drawback is addressed by a generalisation of Spearman's $\rho$ discussed in the following.
 
+Spearman's $\rho$ is defined and can be rewritten as
+\begin{equation}\label{spearman}
+\rho \equiv \cor(v,u) = \frac{\cov(v,u)}{\cov(u,u)}
+=\frac{\int_0^1 \cov\{v,(u>\alpha)\} \de \alpha }{\int_0^1 \cov\{u,(u>\alpha)\} \de \alpha }
+\end{equation}
+where $\cov$ and $\cor$ represent covariance and correlation, respectively. In addition $(u>\alpha)$ is a random variable equal to 1 if $u>\alpha$ and 0 otherwise. The final expression in \eref{spearman} relies on the ``layer decomposition" of $u$
+\begin{equation}\label{decompose}
+u= \int_0^1 (u>\alpha)\de\alpha\ .
+\end{equation}
+The left hand side of \eref{decompose} is $\int_0^u 1\de \alpha=u$. \eref{decompose} decomposes $u$ into layers $(u>\alpha)\de\alpha$ across $0\le\alpha\le 1$. The term layer is used since integrating $(u>\alpha)\de\alpha$ over a subset $[a,b]$ of the unit interval yields $\min\{\max(u-a,0),b-a\}$ which corresponds to layers covered by excess-of-loss reinsurance \citep{wang1995insurance} and debt tranches \citep{mandel2012role}. The infinitesimally small layer $(u>\alpha)\de\alpha$ captures movements in $u$ at $\alpha$ since it jumps when $u$ crosses $\alpha$ and is constant over other values of $u$.
 
-The $\alpha$--layer dependence  between $v$ and the $\alpha$--layer of $u$ is
+Removing the integrals in the final expression of \eref{spearman} yields the $\alpha$--layer dependence  between $v$ and $u$:
 \begin{equation}\label{definition}
 \ell_\alpha \equiv \frac{\cov\{v,(u>\alpha)\}}{\cov\{u,(u>\alpha)\}}
 =\frac{\cor\{v,(u>\alpha)\}}{\cor\{u,(u>\alpha)\}} \cq 0\leq\alpha\leq 1\;,
 \end{equation}
-where cov and cor calculate covariance and correlation, respectively, and $(u>\alpha)$ is the indicator function of the event in brackets. The denominators in \eref{definition} are independent of $C$ and implies $\ell_\alpha=1$ if $u=v$ and $\ell_\alpha=-1$ if $u=1-v$.  Further $-1\leq \ell_\alpha \leq 1$. Independence implies $\ell_\alpha=0$. Coherence properties of $\ell_\alpha$ are explored in \sref{scoherence}. The $\alpha$--layer of $u$ is further discussed below.
+Denominators in \eref{definition} are independent of $C$ and imply $\ell_\alpha=1$ if $u=v$ and $\ell_\alpha=-1$ if $u=1-v$.  Further $-1\leq \ell_\alpha \leq 1$. Independence implies $\ell_\alpha=0$. These and other properties of $\ell_\alpha$ are explored in sections \aref{scoherence} and \aref{sproperties}. Since $(u>\alpha)$ captures movements in $u$ at $\alpha$, $\ell_\alpha$ generalises Spearman's $\rho$ by measuring local dependence between $v$ and $u$ at $\alpha$. This interpretation is further discussed below and in subsequent sections.
 
-Expanding the covariances  in \eref{definition} and manipulating yields
+The local dependence interpretation of $\ell_\alpha$ can be alternatively shown by expanding the covariances  in \eref{definition} and manipulating to yield
 \begin{equation}\label{gapexp}
 \ell_\alpha = \frac{\E(v|u>\alpha)-\E(v|u\leq \alpha)}{\E(u|u>\alpha)-\E(u|u\leq \alpha)}
 =2 \left\{\E(v|u>\alpha)-\E(v|u\leq \alpha)\right\}\;,
 \end{equation}
 where $\E$ calculates expectations using $C$. The middle expression in \eref{gapexp} is the expected change in $v$ relative to the expected change in $u$ when $u$ crosses $\alpha$. The latter is $0.5$ for all $\alpha$, yielding the final expression in \eref{gapexp}. Hence large $\ell_\alpha$ implies $v$ is sensitive to movements in $u$ across $\alpha$, indicating strong dependence between $v$ and $u$ at $\alpha$. When $\ell_\alpha=0$, $v$ is unchanged on average when $u$ crosses $\alpha$, and $u$ and $v$ are independent at $\alpha$.
 
-The definition of layer dependence in \eref{definition} exploits the identity
-\begin{equation}\label{decompose}
-u= \int_0^1 ( u > \alpha )\de\alpha\ .
-\end{equation}
- To prove \eref{decompose}, note the left hand side is $\int_0^u 1\de \alpha$ equaling the right hand side. In addition taking expectations of \eref{decompose} yields the familiar result expressing expectation as the integral of the survival function. Informally, the derivative of the  ``$\alpha$--layer'' of $u$,  $(u>\alpha) \de \alpha$ with respect to $u$ is $\infty\de\alpha=1$ when $u=\alpha$ and $0$ otherwise. Thus the $\alpha$--layer captures movements in $u$ solely at $\alpha$, and ignores movements elsewhere. In addition \eref{decompose} shows $u$ is formed from infinitely many $\alpha$--layers, with each layer capturing the variability of $u$ at a different $\alpha$. Calculating covariance between the $\alpha$--layer of $u$ and $v$ and scaling by the same where $u=v$ yields layer dependence.
-
-
-Using  \eref{definition} and \eref{decompose}, Spearman's correlation between $u$ and $v$ is
+Rewriting Spearman's $\rho$ in \eref{spearman} in terms of $\ell_\alpha$ yields
 \begin{equation}\label{wtdaverage}
-\rho_S\equiv \cor(u,v) =\frac{\cov(u,v)}{\var(u)}=\frac{\int _0^1\cov\{v,(u>\alpha)\}\de\alpha}{1/12}
-=\Ex(\ell_\alpha)\; .
+\rho = \frac{\int_0^1 \cov\{u,(u>\alpha)\} \ell_\alpha \de \alpha }{\int_0^1 \cov\{u,(u>\alpha)\} \de \alpha }
+= \int_0^1 w_\alpha \ell_\alpha \de \alpha
+\cq w_\alpha\equiv 6\alpha(1-\alpha) \; .
 \end{equation}
-where the expectation $\Ex$ is calculated over $0\le\alpha\le 1$ using density $6\alpha(1-\alpha)$.  The density integrates to $1$, has minimum $0$ at $\alpha=0$ and $1$, and increases symmetrically to maximum at $\alpha=0.5$. Modifying the density leads to different emphasis on different areas of the relationship between $u$ and $v$, and yields alternate measures of overall dependence. For example using the density $n\alpha^{n-1}$ where $n>0$ puts increasing weight on upper tail dependence. This is further explored in \sref{saltoverall}.
+Hence Spearman's $\rho$ is a weighted average of $\ell_\alpha$ across $0\le\alpha\le 1$. The weights are $w_\alpha$ and integrate to $1$. Therefore whilst Spearman's $\rho$ measures overall dependence between $u$ and $v$, $\ell_\alpha$ performs the same but locally and averaging values of $\ell_\alpha$ yields $\rho$. Further note $w_\alpha$ has minimum $0$ at $\alpha=0$ and $1$, and increases symmetrically to maximum at $\alpha=0.5$. This implies Spearman's $\rho$ places less emphasis on tail dependence which may be undesirable in finance or insurance where tail dependence is present. Modifying the weights leads to alternate measures of overall dependence. This is further explored in section \aref{saltoverall}.
 
 
 \begin{comment}
@@ -185,13 +189,12 @@ $$
 
 
 
-\section{Layer dependence curves for various copulas}\label{sldcurve}
+\section{Illustration of layer dependence curves for various copulas}\label{sldcurve}
 
-The nine panels in \fref{fillustration} display $(u,v)$ scatterplots of exchangeable copulas, and their layer dependence curves $\ell_\alpha$ for all $0\le\alpha\le 1$. Each copula has Spearman's correlation $\rho_S=0.6$.
+The nine panels in \fref{fillustration} display $(u,v)$ scatterplots of exchangeable copulas $C(u,v)=C(v,u)$, and their layer dependence curves $\ell_\alpha$ for all $0\le\alpha\le 1$. $\ell_\alpha$ and $\alpha$ are plotted on the same axes as $v$ and $u$, respectively. Each copula has Spearman's $\rho=0.6$. The intention of \fref{fillustration}  is to illustrate that copulas with the same overall dependence exhibit different local dependence structures which are captured by layer dependence.
 
 Each $\ell_\alpha$ curve reflects the dependence structure between $u$ and $v$. Given $\alpha$, $\ell_\alpha$ is larger if points are more clustered around $(\alpha,\alpha)$ and vice versa, as formalised in  \sref{sdecompose}. In addition, $\ell_\alpha$ increases to $1$ in the tails if points converge to the $45^\circ$ degree line indicating perfect dependence.
 
-The nine panels in \fref{fillustration} highlight the inadequacies of using Spearman's correlation to measure overall dependence, particularly in the tails. In contrast, layer dependence curves capture the dependence structure of each copula.
 
 
 \begin{figure}
@@ -216,7 +219,7 @@ The nine panels in \fref{fillustration} highlight the inadequacies of using Spea
 
 \section{Layer dependence, discordance and dispersion}\label{sdecompose}
 
-If $(u,v)$ is exchangeable,  $C(u,v)=C(v,u)$, then layer dependence $\ell_\alpha$ measures the lack of discordance and dispersion at $\alpha$:
+If $(u,v)$ is exchangeable then layer dependence $\ell_\alpha$ measures the lack of discordance and dispersion at $\alpha$:
 \begin{equation}\label{decomposition}
 \ell_\alpha = 1-2(1+\gamma_\alpha) \delta_\alpha \;,
 \end{equation}
@@ -249,7 +252,7 @@ $$
 $$
 Substituting the above expressions for $\gamma_\alpha$ and $\delta_\alpha$ into the right hand side of \eref{decomposition} yields the expression for $\ell_\alpha$ in \eref{gapexp}, completing the proof.
 
-Result \eref{decomposition} explains the behaviour of layer dependence curves in \fref{fillustration}. Layer dependence $\ell_\alpha$ is larger if there are fewer discordant pairs at $\alpha$, and discordant pairs at $\alpha$ are closer to the $45^\circ$ degree line. The former indicates smaller $\gamma_\alpha$ and the latter indicates smaller $\delta_\alpha$. Vice versa for small $\ell_\alpha$. If $\ell_\alpha=1$ then $\gamma_\alpha=-1$ or $\delta_\alpha=0$, implying $u$ and $v$ are simultaneously below or above $\alpha$ and $u=v$ for discordant pairs. If $\ell_\alpha=1$  in an interval, then $u=v$  in the same interval.
+Result \eref{decomposition} explains the behaviour of layer dependence curves in \fref{fillustration}. Layer dependence $\ell_\alpha$ is larger if there are fewer discordant pairs at $\alpha$, and discordant pairs at $\alpha$ are closer to the $45^\circ$ degree line. The former indicates smaller $\gamma_\alpha$ and the latter indicates smaller $\delta_\alpha$. Opposite observations apply for small $\ell_\alpha$. If $\ell_\alpha=1$ then $\gamma_\alpha=-1$ or $\delta_\alpha=0$, implying $u$ and $v$ are simultaneously below or above $\alpha$ and $u=v$ for discordant pairs. If $\ell_\alpha=1$  in an interval, then $u=v$  in the same interval.
 
 \fref{finterpretation} illustrates the relationship between layer dependence, discordance and dispersion in \eref{decomposition} using two copulas with $\ell_\alpha=1$ and $\ell_\alpha=0.86$ at $\alpha=0.75$. When $\ell_\alpha=1$, there is no discordance or dispersion at $\alpha$. As $\ell_\alpha$ decreases from $1$, the number of discordant pairs and their dispersion increases.
 
@@ -331,7 +334,7 @@ This paper formulates layer dependence in terms of $u$ and $v$, in this case inc
 \section{Coherence properties of layer dependence}\label{scoherence}
 
 
-Layer dependence $\ell_\alpha$ satisfies five ``coherence" properties. These properties are  extensions of  properties applying to Spearman's correlation $\rho_S$.
+Layer dependence $\ell_\alpha$ satisfies five ``coherence" properties. These properties are  extensions of  properties applying to Spearman's $\rho$.
 \begin{itemize}
 
 \item \textbf{Bounds}: Layer dependence lies between $-1$ and $1$: $-1 \le\ell_\alpha \le 1$ for all $\alpha$.
@@ -342,7 +345,7 @@ Thus $\ell_\alpha=-1$ for all $\alpha$ if and only if  $v=1-u$ while $\ell_\alph
 
 \item \textbf{Independence}: If $u$ and $v$ are independent then $\ell_\alpha\equiv 0$.   The converse is not true -- zero layer dependence does not imply independence as shown by the following counterexample. Assume $v=u$ and $v=1-u$ with equal probability. Then $\E(v|u=t)=0.5$ for all $0\leq t\leq 1$ implying $\E(v|u>\alpha)=\E(v|u\leq\alpha)=0.5$. Hence $\ell_\alpha=0$ from \eref{gapexp}. However $u$ and $v$ are not independent.
 
-\item \textbf{Symmetry}: Ranking either $u$ or $v$ in the opposite direction switches the sign of layer dependence. Changing the ranking order of both variables preserves the sign of layer dependence.
+\item \textbf{Symmetry}: Ranking $v$ in the opposite direction switches the sign of layer dependence. Doing the same to $u$ (the random variable decomposed into layers) switches the sign of layer dependence and flips the layer dependence curve $\ell_\alpha$ about $\alpha=0.5$. Changing the ranking order of both $u$ and $v$ only flips the layer dependence curve.
 
 \item \textbf{Ordering}: Higher correlation order \citep{dhaene2009correlation} leads to higher layer dependence. Consider bivariate uniform $(u^*,v^*)$ exceeding $(u,v)$ in correlation order: $C^*(a,b)\geq C(a,b)$ for all $0\leq a,b\leq 1$, where $C^*$ is the joint distribution of $(u^*,v^*)$. Then
 $
@@ -350,10 +353,10 @@ $
 where $\ell_\alpha^*$ denotes the $\alpha$--layer dependence of $(u^*,v^*)$. Hence greater dependence leads to higher layer dependence across all percentiles.
 
 \end{itemize}
-Independence, symmetry and ordering properties follow from the definition of layer dependence in \eref{definition}. From \eref{gapexp}, constant layer dependence of one implies $\E(v|u>\alpha)=(\alpha+1)/2$ and $\E(v|u=\alpha)=\alpha$, for all $0\leq\alpha\leq 1$, hence $v=u$. Similarly constant layer dependence of minus one implies $v=1-u$. The ordering property holds since higher correlation order implies larger covariances \citep{dhaene2009correlation}. Prove the bounds property by combining ordering and perfect dependence properties, and noting countermonotonicity and comonotonicity represent minimum and maximum correlation order, respectively.
+Independence, symmetry and ordering properties follow from the definition of layer dependence in \eref{definition}. From \eref{gapexp}, constant layer dependence of one implies $\E(v|u>\alpha)=(\alpha+1)/2$ and $\E(v|u=\alpha)=\alpha$, for all $0\leq\alpha\leq 1$, hence $v=u$. Similarly constant layer dependence of minus one implies $v=1-u$. The ordering property holds since higher correlation order implies larger covariances \citep{dhaene2009correlation}. Prove the bounds property by combining ordering and perfect dependence properties, and noting countermonotonicity and comonotonicity represent minimum and maximum correlation order, respectively. Detailed proofs of the coherence properties of layer dependence are discussed in the appendix in section \aref{app1}.
 
 
-
+Most of the above layer dependence properties can be expressed using copulas. For the independence property, $C(u,v)=uv$ implies $\ell_\alpha=0$ and for the perfect dependence property, $C(u,v)=\min(u,v)$ is equivalent to $\ell_\alpha=1$ and $C(u,v)=\max(u+v-1,0)$ is equivalent to $\ell_\alpha=-1$. For the symmetry property, the copula of $(u,1-v)$ is $u-C(u,1-v)$ and has layer dependence $-\ell_\alpha$. Similarly the copula of $(v,1-u)$ is $v-C(1-u,v)$ and has layer dependence $-\ell_{1-\alpha}$. Lastly the copula of $(1-u,1-v)$ is the survival copula $u+v-1+C(1-u,1-v)$ of $C$ and has layer dependence $\ell_{1-\alpha}$.
 
 
 
@@ -454,29 +457,31 @@ Hence first order conditional expectations are a weighted average of correspondi
 
 
 
-\section{Layer dependence and measures of tail behaviour}\label{sliterature}
+\section{Connections to existing measures of tail dependence}\label{sliterature}
 
-Measures have been proposed in the literature to capture the degree of tail dependence.   The next two subsections describe the connection of these measures to layer dependence.
+Measures have been proposed to capture the degree of tail dependence. Tail dependence is dependence between extreme values of random variables, in this case values of $u$ and $v$ near 0 or 1. Strong tail dependence creates catastrophic events such as  multiple bank failures and  market crashes. Layer dependence is intimately connected to two existing tail dependence measures -- coefficient of tail dependence and tail concentration function. \cite{sweeting2013calculating} and \cite{durante2014copulas} further discusses tail dependence measures.
 
 \subsection{Tail dependence}
 
 \cite{joe1997multivariate} defines coefficients of lower and upper tail dependence in terms of the limiting tail probabilities
  $$
-\lim_{\alpha\rightarrow 0} \E\{(v\leq \alpha) |u\leq \alpha\} \cq
-\lim_{\alpha\rightarrow 1} \E\{(v>\alpha )|u>\alpha\} \;.
+\lambda_L \equiv \lim_{\alpha\rightarrow 0} \p(v\leq \alpha |u\leq \alpha) \cq
+\lambda_U \equiv \lim_{\alpha\rightarrow 1} \p(v>\alpha |u>\alpha) \;.
 $$
-Limits of one indicate perfect positive tail dependence, and occur if and only if $u$ and $v$ converge simultaneously to zero (lower tail) or one (upper tail). Negative tail dependence definitions replace $(v\leq \alpha)$ and $(v>\alpha)$ in the above expressions by $(v>1-\alpha)$ and $(v\leq 1-\alpha)$, respectively.  Tail dependence has been used to model  catastrophic events such as  multiple bank failures and  market crashes.
+Unit coefficients indicate perfect positive tail dependence, and occur if and only if $u$ and $v$ converge simultaneously to 0 (lower tail) or 1 (upper tail). Coefficients of negative tail dependence replace $v\leq \alpha$ and $v>\alpha$ in the above expressions with $v>1-\alpha$ and $v\leq 1-\alpha$, respectively.  \cite{sweeting2013calculating} discusses the drawback of these coefficients and suggests a modification by weakening the limits, yielding links to tail concentration functions discussed below.
 
-Perfect tail dependence by \cite{joe1997multivariate} is equivalent to perfect layer dependence in the tails.  For example consider the upper tail. From \eref{gapexp}, $\ell_1=2\E(v|u=1)-1$ implying $\ell_1=1$ if and only if $\E(v|u=1)=1$.  Hence $\ell_1=1$ if and only if $u=1$ implies $v=1$.   Similarly $\ell_1=-1$ if and only if $u=1$ implies $v=0$. Similar remarks apply to the lower tail:   $\ell_0=1$ if and only if $u=0$ implies $v=0$ while $\ell_0=-1$ if and only if $u=0$ implies $v=1$. Hence perfect layer dependence in the tails implies variables simultaneously achieve their extreme values.
+The following shows $\lambda_L=1$ is equivalent to $\ell_0=1$ and $\lambda_U=1$ is equivalent to $\ell_1=1$. Similar links apply to negative tail dependence. Hence \cite{joe1997multivariate} and layer dependence characterise perfect tail dependence equivalently. From \eref{gapexp}, $\ell_1=2\E(v|u=1)-1$ implying $\ell_1=1$ if and only if $\E(v|u=1)=1$.  Hence $\ell_1=1$ if and only if $u=1$ implies $v=1$, which is equivalent to $\lambda_U=1$. In addition $\ell_0=1$ if and only if $u=0$ implies $v=0$, which is equivalent to $\lambda_L=1$. Similar proofs apply to perfect negative tail dependence. 
 
 
-\subsection{Tail concentration}
+
+\subsection{Tail concentration function}
 
 Tail concentration \citep{venter2002tails} is a local dependence measure formed by combining lower and upper conditional tail probabilities at $\alpha$:
 $$
 \tau_\alpha \equiv (\alpha\leq 0.5) \p(v\leq \alpha|u\leq \alpha) + (\alpha>0.5)\p(v>\alpha|u>\alpha) \;.
 $$
-Higher tail concentration $\tau_\alpha$ implies $u$ and $v$ are more likely to fall in the same lower tail ($\alpha\leq 0.5$) or upper tail ($\alpha>0.5$).
+Higher tail concentration $\tau_\alpha$ implies $u$ and $v$ are more likely to fall in the same lower tail ($\alpha\leq 0.5$) or upper tail ($\alpha>0.5$). In addition taking the limits $\alpha\rightarrow 0$ or $\alpha\rightarrow 1$ yields coefficients of tail dependence $\lambda_L$ and $\lambda_U$ discussed above. Properties of tail concentration and its applications to distinguish families of copulas are further discussed in \cite{durante2014copulas}.
+
 
 To display the connection of layer dependence to tail concentration, rewrite the latter  in terms of the copula $C$ of $(u,v)$:
 $$
@@ -489,18 +494,67 @@ $$
 $$
 where $\gamma_\alpha$ is defined below \eref{decomposition}.
 
-Hence, using \eref{decomposition}, $\ell_\alpha=1-2\delta_\alpha(1-\tau_\alpha^*)$ where $\delta_\alpha$ is the average dispersion between points $(u,v)$ discordant at $\alpha$. Note layer dependence and tail concentration have the same sign. Hence layer dependence refines tail concentration by standardising it and including further information on dispersion.
+Hence, using \eref{decomposition}, $\ell_\alpha=1-2\delta_\alpha(1-\tau_\alpha^*)$ where $\delta_\alpha$ is the average dispersion between points $(u,v)$ discordant at $\alpha$. Note $\ell_\alpha$ and $\tau_\alpha^*$ have the same sign. Hence layer dependence refines tail concentration by standardising it and including further information on dispersion.
 
 
 \section{Further properties of layer dependence}\label{sproperties}
 
-This section lists and explores further properties of layer dependence.
+This section lists and explores further properties and results of layer dependence.
+
+
+
+
+\subsection{Copula integration}
+
+
+Note $\cov\{(u>\alpha),(v>\beta)\}=C(\alpha,\beta)-\alpha\beta$ and apply \eref{decompose} to $v$, to derive
+\begin{equation}\label{copula}
+\ell_\alpha = \frac{\int_0^1 \cov\{(u>\alpha),(v>\beta)\} \de\beta }{\alpha(1-\alpha)/2}
+= \frac{2 \int_0^1 C(\alpha,\beta) \de \beta- \alpha}{\alpha(1-\alpha)} \;.
+\end{equation}
+Thus $\ell_\alpha$ integrates copulas to reduce their dimension from two and one, and scales the result to ensure it lies between $\pm 1$.
+
+With Archimedean copulas \citep{mcneil2005qrm} $C(\alpha,\beta) =\psi^-\left\{\psi(\alpha)+\psi(\beta)\right\}$ where $\psi$ is the generator function and $\psi^-$ its inverse. In this case closed form expressions for the integrals and hence for $\ell_\alpha$ do not exist.
+
+
+
+\subsection{Layer dependence preserves convex combination}
+
+A direct consequence of the copula integration result \eref{copula} is layer dependence preserves convex combinations of random variables, as follows.
+
+Suppose $(u^*,v^*)$ is bivariate uniform with $\alpha$--layer dependence $\ell_\alpha^*$ and copula $C^*$. Then a convex combination of $(u,v)$ and $(u^*,v^*)$ yielding the copula $\pi C+(1-\pi)C^*$ where $0\le \pi\le 1$ is constant has layer dependence $\pi\ell_\alpha+(1-\pi)\ell_\alpha^*$. The proof follows directly from \eref{copula}.
+
+This result generalises to multiple and continuous convex combinations of bivariate uniform random variables and their copoulas. 
+
+
+
+\subsection{One-sided conditional tail expectations}
+
+
+Since $\E(v)=\alpha\E(v|u\leq \alpha)+(1-\alpha)\E(v|u>\alpha)$ it is straightforward to show from \eref{gapexp} that
+$$
+\ell_\alpha = \frac{\E(v|u> \alpha)-\E(v)}{\E(u|u> \alpha)-\E(u)} = \frac{\E(v|u\leq \alpha)-\E(v)}{\E(u|u\leq \alpha)-\E(u)} \;,
+$$
+the gap between upper or lower conditional tail expectations of $v$ and the unconditional expectation. Denominators are again scaling factors ensuring $\ell_\alpha=1$ if $u$ and $v$ are comonotonic and $\ell_\alpha=-1$ if countermonotonic.
+
+\begin{comment}
+Rewriting conditional tail expectations in \eref{gapexp} in terms of ``pointwise" conditional expectations yields
+$$
+\ell_\alpha = 2\left\{\frac{1}{1-\alpha}\int_\alpha^1 \E(v|u=t) \de t - \frac{1}{\alpha}\int_0^\alpha \E(v|u=t) \de t \right\} \;,
+$$
+hence $\alpha$-layer dependence is the difference between average points on the regression curve of $v$ on $u$ over $u>\alpha$ and $u\leq\alpha$.
+\end{comment}
+
+
 
 \subsection{Layer dependence does not uniquely characterise a copula}
 
-Suppose $v=u$ and $v=1-u$ with equal probability, implying $\E(v|u\leq \alpha)=\E(v|u>\alpha)=0.5$ for all $\alpha$. Then $\ell_\alpha=0$, from \eref{gapexp}. The copula is $C(u,v)=0.5\{\min(u,v)+\max(u+v-1,0)\}$. The same $\ell_\alpha$ results if $u$ and $v$ are independent: $C(u,v)=uv$.
 
-This example emphasises layer dependence only captures first-order conditional tail expectations, based on \eref{gapexp}. Hence two copulas with equal first-order conditional tail expectations have equal layer dependence.
+Layer dependence curves extract and summarise dependence information in a copula. Therefore layer dependence curves do not uniquely specify the copula, as shown in the following counterexample.
+
+Suppose $v=u$ and $v=1-u$ with equal probability. The former and latter imply layer dependence of $=1$ and $-1$, respectively. Hence $\ell_\alpha=0$ for all $\alpha$ since layer dependence preserves convex combinations as discussed above. The copula of $(u,v)$ is $C(u,v)=0.5\{\min(u,v)+\max(u+v-1,0)\}$. However $\ell_\alpha=0$ is also the case if $u$ and $v$ are independent: $C(u,v)=uv$. Hence layer dependence curves are not unique to the copula.
+
+Non-uniqueness is seen from another perspective using \eref{gapexp}: $\ell_\alpha$ only captures first-order conditional tail expectations. Hence two copulas with equal first-order conditional tail expectations have equal layer dependence.
 
 \begin{comment}
 
@@ -520,53 +574,120 @@ The left expression measures local dependence with respect to $u$. The right exp
 
 \subsection{Layer dependence for a non-exchangeable copula}
 
-If $u$ and $v$ are exchangeable, layer dependence in \eref{definition} is invariant when $u$ and $v$ are switched. Archimedean copulas \citep{mcneil2005qrm} for example are exchangeable. If $u$ and $v$ are not exchangeable then layer dependence differs when layers of $v$ instead of $u$ are applied, that is dependence between $v$ and $\alpha$--layer of $u$ differs from dependence between $u$ and $\alpha$--layer of $v$.
-
-An analogous property applies to least squares regression: regressing $v$ on $u$ is the same as  regressing $u$ on $v$, if the joint distribution is  exchangeable. Otherwise the regressions differ.
-
-
-
-
-\subsection{Layer dependence preserves convex combination}
-
-Suppose $(u,v)$ and $(u^*,v^*)$ are both bivariate uniform with layer dependence $\ell_\alpha$ and $\ell_\alpha^*$, respectively. Then  $\pi\ell_\alpha+(1-\pi)\ell_\alpha^*$ is the layer dependence of  the random variable $x(u,v)+(1-x)(u^*,v^*)$ where $x$ is Bernoulli with success probability $\pi$.  The proof  is straightforward using \eref{gapexp}.  This result generalises to multiple and continuous convex combinations of a vector of bivariate uniform random variables.
-
-
-\subsection{One-sided conditional tail expectations}
-
-
-Since $\E(v)=\alpha\E(v|u\leq \alpha)+(1-\alpha)\E(v|u>\alpha)$ it is straightforward to show from \eref{gapexp} that
+If $u$ and $v$ are exchangeable, such as in Archimedean copulas \citep{mcneil2005qrm}, then layer dependence is invariant when $u$ and $v$ are switched:
 $$
-\ell_\alpha = \frac{\E(v|u> \alpha)-\E(v)}{\E(u|u> \alpha)-\E(u)} = \frac{\E(v|u\leq \alpha)-\E(v)}{\E(u|u\leq \alpha)-\E(u)} \;,
-$$
-the gap between upper or lower conditional tail expectations of $v$ and the unconditional expectation. As before denominators are scaling factors ensuring $\ell_\alpha=1$ if $u$ and $v$ are comonotonic and $-1$ if countermonotonic.
+\frac{\cov\{v,(u>\alpha)\}}{\cov\{u,(u>\alpha)\}}
+=\frac{\cov\{u,(v>\alpha)\}}{\cov\{v,(v>\alpha)\}} \cq 0\le\alpha\le 1\;.
+$$ 
+Hence it does not matter whether $u$ or $v$ is decomposed into layers.
+ 
+If $u$ and $v$ are not exchangeable then layer dependence differs when layers of $v$ instead of $u$ are applied, that is dependence between $v$ and $\alpha$--layer of $u$ differs from dependence between $u$ and $\alpha$--layer of $v$.
 
+An analogous property applies to least squares regression: regressing $v$ on $u$ is the same as  regressing $u$ on $v$, if the joint distribution is  exchangeable. The two regressions differ otherwise.
+
+
+
+
+
+
+
+
+
+
+\section{Alternate measures of overall dependence}\label{saltoverall}
+
+
+Equation \eref{wtdaverage} expresses Spearman's $\rho$ as a weighted average of  $\ell_\alpha$ over $0\le\alpha\le 1$ using weights $w_\alpha=6\alpha(1-\alpha)$ integrating to 1. As mentioned below \eref{wtdaverage}, $w_\alpha$ may be inappropriate since it dismisses tail dependence. Averaging $\ell_\alpha$ using different weights $w^*_\alpha$ yields alternate measures of overall rank dependence:
+$$
+\rho^*\equiv  \int_0^1 w^*_\alpha \ell_\alpha \de \alpha = \int_0^1 w^*_\alpha \frac{ \cov\{v,(u>\alpha)\}}{\cov\{u,(u>\alpha)\}} \de \alpha=\cov\{W^*(u),v\} \;,
+$$
+where
+$$
+W^*(u)\equiv 2\int_0^u \frac{w^*_\alpha}{\alpha(1-\alpha)}\de\alpha \;,
+$$
+is the weighted cumulative of $w^*_\alpha$. Hence the alternate $\rho^*$ is also a covariance, between $v$ and a transformation of $u$.  For Spearman's $\rho$, $w^*_\alpha=6\alpha(1-\alpha)$ thus $W^*(u)=12u$ yielding $\rho^*=\cov(12u,v)=\cor(u,v)=\rho$. Weights $w^*_\alpha$ indicate the importance of local dependence at various layers of $u$.
+
+Since $\rho^*$ averages $\ell_\alpha$, coherence properties of layer dependence described in section \aref{scoherence} apply to $\rho^*$ for any $0\le w^*_\alpha\le 1$ integrating to one. These properties are $-1\le\rho^*\le 1$,  $\rho^*=-1$, $0$ and $1$ under countermonotonicity, independence and comonotonicity, respectively, $\rho^*$ switching its sign when $u$ or $v$ is replaced by its complement, and higher $\rho^*$ when the correlation order of $(u,v)$ increases.
+Identical properties apply to Spearman's $\rho$.
+
+The following are examples of $w_\alpha^*$ yielding rank dependence measures alternate to Spearman's $\rho$:
+\begin{itemize}
+
+\item Suppose dependence at different percentiles are equally important.   Then $w^*_\alpha$ is uniform yielding
+$$
+\rho^*_1 =2\cov\left\{v,\log\left(\frac{u}{1-u}\right)\right\}
+= \sqrt{\frac{2}{3}}\ \cor\left\{v,\log\left(\frac{u}{1-u}\right)\right\} \;,
+$$
 \begin{comment}
-Rewriting conditional tail expectations in \eref{gapexp} in terms of ``pointwise" conditional expectations yields
+\int_0^1 \frac{\cov\{v,(u>\alpha)\}}{\cov\{u,(u>\alpha)\}} \de \alpha
+=\cov\left[v,\int_0^1 \frac{(u>\alpha)}{\cov\{u,(u>\alpha)\} }\de \alpha\right]
 $$
-\ell_\alpha = 2\left\{\frac{1}{1-\alpha}\int_\alpha^1 \E(v|u=t) \de t - \frac{1}{\alpha}\int_0^\alpha \E(v|u=t) \de t \right\} \;,
 $$
-hence $\alpha$-layer dependence is the difference between average points on the regression curve of $v$ on $u$ over $u>\alpha$ and $u\leq\alpha$.
+=\cov\left\{v,\int_0^u \frac{1}{0.5\alpha(1-\alpha) }\de \alpha\right\}
 \end{comment}
+a multiple of the correlation between $v$ and the logit of $u$. If tail dependence is pronounced, $\rho_1^*>\rho$ since $\rho^*_1$ weights tail dependence more heavily compared to $\rho$. An illustration is shown below.
 
-
-\subsection{Copula integration}
-
-Note $\cov\{(u>\alpha),(v>\beta)\}=C(\alpha,\beta)-\alpha\beta$ and apply \eref{decompose} to $v$, to derive
+\item If $w^*_\alpha=3\alpha^2$  then dependence at higher percentiles are considered more important. This formulation is applicable when upper tail dependence is critical, for example the simultaneous occurrence of large insurance losses in different lines of business. Then
 $$
-\ell_\alpha = \frac{\int_0^1 \cov\{(u>\alpha),(v>\beta)\} \de\beta }{\alpha(1-\alpha)/2}
-= \frac{2 \int_0^1 C(\alpha,\beta) \de \beta- \alpha}{\alpha(1-\alpha)} = \frac{2 \int_0^1 C(\beta|\alpha) \de \beta- 1}{1-\alpha}\;,
+\rho_2^* = 6\cov\left\{v,\log\left(\frac{\e^{-u}}{1-u}\right) \right\}
+=\sqrt{3} \cor\left\{v,-\log(1-u)\right\}-\frac{\rho}{2}\;.
 $$
-where $C(\beta|\alpha)=\p(v\le\beta|u\le\alpha)$ is the conditional copula. Thus $\ell_\alpha$ integrates copulas and conditional copulas to reduce their dimension from two and one, and scales the result to ensure it lies between $\pm 1$.
+If dependence is higher over percentiles above the median then $\rho_2^*>\rho$.
 
-With Archimedean copulas \citep{mcneil2005qrm} $C(\alpha,\beta) =\psi^-\left\{\psi(\alpha)+\psi(\beta)\right\}$ where $\psi$ is the generator function and $\psi^-$ its inverse. In this case closed form expressions for the integrals and hence for $\ell_\alpha$ do not exist.
+\item If dependence over percentiles below the median is more important then for example  $w^*_\alpha=3(1-\alpha)^2$ yielding
+$$
+\rho_3^* = 6\cov\left\{v,\log \left( u \e^{-u}\right) \right\}
+= \sqrt{3}\cor(v,\log u )-\frac{\rho}{2}  \ .
+$$
+
+
+\item Suppose $w^*_\alpha$ is derived from $V_\alpha$, the inverse marginal distribution of $x$ with derivative $V_\alpha'$:
+$$
+w^*_\alpha = \frac{\cov\{u,(u>\alpha)\}V_\alpha'}{\int_0^1 \cov\{u,(u>\alpha)\}V_\alpha' \de\alpha}
+=\frac{\alpha(1-\alpha)V_\alpha'}{\cov(V_u,u)}
+=\frac{\alpha(1-\alpha)V_\alpha'}{\cov(x,u)} \;,
+$$
+where $x=V_u$. This yields the Gini correlation  \citep{schechtman1999proper}
+$$
+\rho_3^*=\frac{\cov(V_u,v)}{\cov(V_u,u)} = \frac{\cov\{x,G(y)\}}{\cov\{x,F(x)\}} \;,
+$$
+where $F\equiv V^-$ and $G$ are distribution functions of $x$ and $y$, respectively.  In this example the weights $w^*_\alpha$ depend on the marginal distribution of $x$. More skewness in $x$ leads to more steeply increasing $w^*_\alpha$ hence greater emphasis on upper tail dependence.
+
+\end{itemize}
+
+
+\subsection{Illustration of alternates to Spearman's $\rho$}
+
+
+\fref{falternate} illustrates the first three proposed alternates to Spearman's $\rho$ listed above. \fref{falternate} reuses the nine copulas in \fref{fillustration} with equal Spearman's $\rho=0.6$. Spearman's $\rho$ summarises lower and upper dependence symmetrically and dismisses tail dependence. These drawbacks are addressed by the alternate measures. 
+
+
+For example xxx...
 
 
 
 
+\begin{figure}
+  \begin{center}
+    \begin{tabular}{ccc}
+      \resizebox{40mm}{!}{\includegraphics{normal1.eps}}
+            \resizebox{40mm}{!}{\includegraphics{student1.eps}}
+      \resizebox{40mm}{!}{\includegraphics{structural21.eps}} \\
+      \resizebox{40mm}{!}{\includegraphics{gumbel1.eps}}
+            \resizebox{40mm}{!}{\includegraphics{structural11.eps}}
+      \resizebox{40mm}{!}{\includegraphics{clayton1.eps}} \\
+            \resizebox{40mm}{!}{\includegraphics{frank1.eps}}
+            \resizebox{40mm}{!}{\includegraphics{structural31.eps}}
+      \resizebox{40mm}{!}{\includegraphics{structural41.eps}} \\
+    \end{tabular}
+    \caption{Copulas from \fref{fillustration} with equal Spearman's $\rho=0.6$ (black line) and different $\rho_1^*$ (green), $\rho_2^*$ (blue) and $\rho_3^*$ (red).  }
+    \label{falternate}
+  \end{center}
+\end{figure}
 
 
-\section{Copula fitting using layer dependence}\label{sfitting}
+
+\section{Discussion of copula fitting using layer dependence}\label{sfitting}
 
 This section proposes fitting a copula  to data using layer dependence. The approach can  incorporate expert opinion on the dependence structure. The approach is illustrated using historical NASDAQ and FTSE stock returns.
 
@@ -589,6 +710,8 @@ The layer dependence approach offers two advantages over fitting parametric copu
 In comparison to empirical copulas, layer dependence is more robust and less affected by data inadequacies. Layer dependence summarises past data into linear functions of conditional tail means, with a parametric curve fitted to calculated values. Hence layer dependence captures advantages of parametric and empirical copulas -- the fitted copula utilises a smooth layer dependence curve, and the dependence structure underlying the fitted copula mirrors past data.
 
 
+
+\begin{comment}
 
 \subsection{Factor copula model}
 
@@ -662,7 +785,7 @@ The bottom right panel in \fref{fmarketindex} plots the density of the common fa
 
 
 
-
+\end{comment}
 
 
 \begin{comment}
@@ -682,69 +805,6 @@ v_i=F\{F^-(\mu_i)+\sigma\eps_i\}\ ,\ \mu_{i}=\tau_i - (n-i)(\tau_{i}-\tau_{i-1})
 $$
 with $\tau_0=1/2$ and $\sigma$ chosen so that Spearman's $\rho$ for the each sample is expected to match $\rho_S$ implied by $\ell_\alpha$ as in \eref{wtdaverage}.  Here $F$ is an appropriate distribution such as the normal or  logit:  $F^-(\mu_i)=\ln\{\mu_i/(1-\mu_i)\}$.  In the logic case setting $\sigma=1$ appears to ensure a match between the theoretical and empirical $\rho_S$.  To enforce the $v_1,\ldots,v_n$ are empirically uniform the final $F$ transformation $F$ is replaced by computing  empirical percentiles.
 \end{comment}
-
-
-\section{Alternate measures of overall dependence}\label{saltoverall}
-
-
-Equation \eref{wtdaverage} shows that Spearman's correlation is a weighted average of  $\ell_\alpha$ using weights $6\alpha(1-\alpha)$. Alternative rank dependence measures are attained  by using different weights $w_\alpha$:
-$$
-\rho_W\equiv  \int_0^1 w_\alpha \ell_\alpha \de \alpha = \int_0^1 w_\alpha \frac{ \cov\{v,(u>\alpha)\}}{\cov\{u,(u>\alpha)\}} \de \alpha=\cov\{W(u),v\} \;,
-$$
-where
-$$
-W(u)\equiv 2\int_0^u \frac{w_\alpha}{\alpha(1-\alpha)}\de\alpha \;,
-$$
-is the weighted cumulative of $w_\alpha$.  For Spearman's correlation $\rho_S$, $w_\alpha=6\alpha(1-\alpha)$ and $W(u)$ is proportional to $u$.
-
-Since $\rho_W$ is a weighted average of $\ell_\alpha$, coherence properties of layer dependence described in \sref{scoherence} apply to $\rho_W$ for any weight function $w_\alpha$: bounded by $\pm 1$, constant values of $-1$, $0$ and $1$ under countermonotonicity, independence and comonotonicity, respectively, sign reversal when ranking order switches, and higher values for stronger dependence.
-
-The density $w_\alpha$ specifies ``importance" of dependence at percentile $\alpha$. With Spearman's correlation, $w_\alpha=6\alpha(1-\alpha)$: importance is symmetric and highest at the median, and decreases to zero at both tails. Hence $\rho_S$ emphasizes dependence at moderate percentiles and diminishes dependence in the tails. This weighting may be inappropriate when tail dependence is prominent and carries adverse consequences, such as multiple market crashes or catastrophe insurance losses. Alternate densities are described below.
-
-The following densities $w_\alpha$ yield alternate rank dependence measures:
-\begin{itemize}
-
-\item Suppose dependence at different percentiles are equally important.   Then $w_\alpha$ is the uniform density and
-$$
-\rho_W =2\cov\left\{v,\log\left(\frac{u}{1-u}\right)\right\}
-= \sqrt{\frac{2}{3}}\ \cor\left\{v,\log\left(\frac{u}{1-u}\right)\right\} \;,
-$$
-\begin{comment}
-\int_0^1 \frac{\cov\{v,(u>\alpha)\}}{\cov\{u,(u>\alpha)\}} \de \alpha
-=\cov\left[v,\int_0^1 \frac{(u>\alpha)}{\cov\{u,(u>\alpha)\} }\de \alpha\right]
-$$
-$$
-=\cov\left\{v,\int_0^u \frac{1}{0.5\alpha(1-\alpha) }\de \alpha\right\}
-\end{comment}
-a multiple of the correlation between $v$ and the logit of $u$. If tail dependence is pronounced, $\rho_W>\rho_S$ since $\rho_W$ weights tail dependence more heavily compared to $\rho_S$.
-
-\item If $w_\alpha=3\alpha^2$  then dependence at higher percentiles are considered more important. This density is applicable when upper tail dependence is critical, for example the simultaneous occurrence of large insurance losses in different lines of business. Then
-$$
-\rho_W = 6\cov\left\{v,\log\left(\frac{\e^{-u}}{1-u}\right) \right\}
-=\sqrt{3} \cor\left\{v,-\log(1-u)\right\}-\frac{\rho_S}{2}\;.
-$$
-If dependence is higher over percentiles above the median then $\rho_W>\rho_S$.
-
-\item If dependence over percentiles below the median is more important then for example  $w_\alpha=3(1-\alpha)^2$ yielding
-$$
-\rho_W = 6\cov\left\{v,\log \left( u \e^{-u}\right) \right\}
-= \frac{\rho_S}{2}  - \sqrt{3}\cor(v,\log u ) \ .
-$$
-
-
-\item Suppose $w_\alpha$ is derived from $V_\alpha$, the inverse marginal distribution of $x$ with derivative $V_\alpha'$:
-$$
-w_\alpha = \frac{\cov\{u,(u>\alpha)\}V_\alpha'}{\int_0^1 \cov\{u,(u>\alpha)\}V_\alpha' \de\alpha}
-=\frac{\alpha(1-\alpha)V_\alpha'}{\cov(V_u,u)}
-=\frac{\alpha(1-\alpha)V_\alpha'}{\cov(x,u)} \;,
-$$
-where $x=V_u$. This yields the Gini correlation  \citep{schechtman1999proper}
-$$
-\rho_W=\frac{\cov(V_u,v)}{\cov(V_u,u)} = \frac{\cov\{x,G(y)\}}{\cov\{x,F(x)\}} \;,
-$$
-where $F\equiv V^-$ and $G$ are distribution functions of $x$ and $y$, respectively.  In this example the density $w_\alpha$ depends on the marginal distribution of $x$. More skewness in $x$ leads to more steeply increasing $w_\alpha$ hence greater emphasis on upper tail dependence.
-
-\end{itemize}
 
 
 \begin{comment}
@@ -1127,6 +1187,79 @@ $$
 $$
 where $z$, $c$, $u_0$ and $v_0$ are independent uniform. Direct calculation shows the layer dependence of $(u_*,v_*)$ is constant and equal to $0.5$. Hence model $(u,v)$ as a mixture of independent uniform random variables and $(u_*,v_*)$, with weights $1-2r$ and $2r$, respectively. The layer dependence of $(u,v)$ is $(1-2r)\times 0+2r\times 0.5=r$, as desired.
 \end{comment}
+
+
+\newpage
+
+\section{Appendix}
+
+
+\subsection{Proof of equation \eref{gapexp}}
+
+Expanding the definition of layer dependence yields
+$$
+\ell_\alpha = \frac{\cov\{v,(u>\alpha)\}}{\cov\{u,(u>\alpha)\}} = ...
+$$
+
+\subsection{Proof of coherence properties in section \aref{scoherence}}
+
+\textbf{Independence property}
+
+If $u$ and $v$ are independent, then layer dependence
+$$
+\ell_\alpha = \frac{\cov\{v,(u>\alpha)\}}{\cov\{u,(u>\alpha)\}}
+=0 \cq  0\leq\alpha\leq 1
+$$
+since the numerator is zero.
+
+
+\textbf{Perfect dependence property}
+
+If $u$ and $v$ are comonotonic or $v=u$, then layer dependence
+$$
+\ell_\alpha = \frac{\cov\{v,(u>\alpha)\}}{\cov\{u,(u>\alpha)\}}= \frac{\cov\{u,(u>\alpha)\}}{\cov\{u,(u>\alpha)\}}
+=1 \cq  0\leq\alpha\leq 1  \;.
+$$
+In addition $\ell_\alpha=1$ implies from \eref{gapexp} 
+
+
+\textbf{Symmetry}
+
+Replacing $v$ with $1-v$ yields layer dependence
+$$
+\frac{\cov\{1-v,(u>\alpha)\}}{\cov\{u,(u>\alpha)\}} = 
+- \frac{\cov\{v,(u>\alpha)\}}{\cov\{u,(u>\alpha)\}} = -\ell_\alpha \;,
+$$
+whilst replacing $u$ with $1-u$ yields
+$$
+\frac{\cov\{v,(1-u>\alpha)\}}{\cov\{1-u,(1-u>\alpha)\}}
+=-\frac{\cov\{v,(u<1-\alpha)\}}{\cov\{u,(u<1-\alpha)\}}
+=-\frac{\cov\{v,1-(u>1-\alpha)\}}{\cov\{u,1-(u>1-\alpha)\}}
+$$
+$$
+=-\frac{\cov\{v,(u>1-\alpha)\}}{\cov\{u,(u>1-\alpha)\}}
+=-\ell_{1-\alpha} \;.
+$$
+Using a similar proof, replacing $v$ and $u$ with $1-v$ and $1-u$, respectively, yields layer dependence $\ell_{1-\alpha}$.
+
+\textbf{Correlation order}
+
+
+If $(u_*,v_*)$ exceeds $(u,v)$ in correlation order, then 
+$$
+\cov\{f(u_*),g(v_*)\} \geq \cov\{f(u),g(v)\}
+$$ 
+for any non-decreasing functions $f$ and $g$. Hence $\cov\{v_*,(u_*>\alpha)\} \geq \cov\{v,(u>\alpha)\}$ implying $(u_*,v_*)$ has higher layer dependence than $(u,v)$.
+
+
+
+
+\textbf{Bounds}
+
+Since layer dependence preserves correlation order, $\ell_\alpha\le 1$ since $\ell_\alpha=1$ if $u$ and $v$ are comonotonic and comonotonicity represents maximum correlation order. Similarly $\ell_\alpha \ge -1$ noting countermonotonicity represents minimum correlation order.
+
+\newpage
+
 
 \section*{References}
 

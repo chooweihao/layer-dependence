@@ -99,8 +99,6 @@ Local dependence; rank dependence; conditional tail expectation; Spearman's corr
 
 \end{frontmatter}
 
-\newpage 
-
 
 \section{Local dependence and layer dependence}
 
@@ -133,7 +131,7 @@ The literature suggests several approaches on fitting a copula to past data. If 
 
 
 
-\section{Layer dependence}\label{sintroduction}
+\section{Layer dependence - motivation and definition}\label{sintroduction}
 
 Suppose $u$ and $v$ are percentile ranks of continuous random variables $x$ and $y$.  Then $(u,v)$ has standard uniform marginals and joint distribution $C$, a copula \citep{nelson1999ic}.
 
