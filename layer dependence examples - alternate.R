@@ -95,26 +95,54 @@ u=cbind(u1,u2);
 
 
 
+
+
 #compute marginal correlation
 data=u; u1=data[,1]; u2=data[,2]; 
-u1=u1[2:99999]; u2=u2[2:99999];
-n=100; cutoff=(1:n)/n;
+n=100
+cutoff=matrix((1:n)/n);
+marcor=0; #marginal correlation
+
+for (i in 1:n)
+{
+k=cutoff[i]; ind1=(u1<=k); 
+marcor[i]=cov(u2,ind1)/cov(u1,ind1);
+}
+
 rho=cor(u1,u2);
-rho1=(2/3)^0.5*cor(log(u1/(1-u1)),u2);
-rho2=(3^0.5)*cor(-log(1-u1),u2)-0.5*rho;
-rho3=(3^0.5)*cor(log(u1),u2)-0.5*rho;
+rho1=pi/3*cor(u2,log(u1/(1-u1)));
+rho2=3^0.5*cor(u2,-log(1-u1))-0.5*rho;
+rho3=3^0.5*cor(u2,log(u1))-0.5*rho;
+
+
+a=(0:100)/100;
+w1=6*a*(1-a);
+w2=a/a;
+w3=3*a^2;
+w4=3*(1-a)^2;
+
+setEPS();
+postscript("weights.eps")
+par(mar=c(5,5,1,1));
+plot(a,w1,type="l",cex=1,
+xlab=expression(alpha),ylab=expression(w[alpha]),lwd=5,cex.lab=2,col="black",ylim=c(0,3));
+lines(a,w2,lty=1,lwd=5,col="blue");
+lines(a,w3,lty=1,lwd=5,col="green");
+lines(a,w4,lty=1,lwd=5,col="yellow");
+dev.off();
 
 
 
 setEPS();
-postscript("structural11.eps")
+postscript("alternate.eps")
 par(mar=c(5,5,1,1));
 plot(u1[1:1000],u2[1:1000],type="p",cex=1,
 xlab=expression(paste(list(u))),ylab=expression(paste(list(v))),cex.lab=2);
-lines(cutoff,rho*rep(1,n),lty=1,lwd=5);
-lines(cutoff,rho1*rep(1,n),lty=1,lwd=5,col="green");
-lines(cutoff,rho2*rep(1,n),lty=1,lwd=5,col="blue");
-lines(cutoff,rho3*rep(1,n),lty=1,lwd=5,col="red");
+lines(cutoff,marcor,lty=1,lwd=5,col="red");
+lines(cutoff,rho*rep(1,n),lty=1,lwd=5,col="black");
+lines(cutoff,rho1*rep(1,n),lty=1,lwd=5,col="blue");
+lines(cutoff,rho2*rep(1,n),lty=1,lwd=5,col="green");
+lines(cutoff,rho3*rep(1,n),lty=1,lwd=5,col="yellow");
 dev.off();
 
 
