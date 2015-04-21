@@ -186,7 +186,13 @@
   publisher={Cambridge Univ Press}
 }
 
-
+@article{durante2014copulas,
+  title={Copulas, diagonals, and tail dependence},
+  author={Durante, Fabrizio and Fern{\'a}ndez-S{\'a}nchez, Juan and Pappad{\`a}, Roberta},
+  journal={Fuzzy Sets and Systems},
+  year={2014},
+  publisher={Elsevier}
+}
 
 
 @article{kojadinovic2010comparison,
@@ -1744,6 +1750,13 @@
   publisher={Elsevier}
 }
 
+
+@article{das2011differences,
+  title={Differences in Tranching Methods: Some Results and Implications},
+  author={Das, Ashish and Stein, Roger M},
+  journal={New York: Moody’s Research Labs},
+  year={2011}
+}
 
 
 @article{artzner1999cmr,

@@ -1,0 +1,89 @@
+\documentclass[a4paper, 12pt]{report}
+\setlength\arraycolsep{2pt}
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+\setcounter{tocdepth}{0}
+\usepackage{graphicx}
+\usepackage{chicago}
+\usepackage{amsfonts}
+\usepackage{pdfpages}
+\bibliographystyle{chicago}
+
+
+\newcommand{\eref}[1]{(\ref{#1})}
+\newcommand{\fref}[1]{Figure \ref{#1}}
+\newcommand{\sref}[1]{\S\ref{#1}}
+\newcommand{\tref}[1]{Table \ref{#1}}
+\newcommand{\aref}[1]{\ref{#1}}
+\newcommand{\bi}{\begin{itemize}}
+\renewcommand{\i}{\item}
+\newcommand{\ei}{\end{itemize}}
+
+
+
+\begin{document}
+
+
+\section*{Response to Referee A comments}
+
+
+
+
+Referee A provided a number of helpful, specific comments on how to improve the paper and the ideas behind layer dependence. We have made significant revisions to our paper to address Referee A's comments. Some of our revisions were not specifically brought up by Referee A but were inspired by Referee A's comments. For example we have formalised and discussed in detail several of the concepts and properties of layer dependence in the paper, e.g. section 2.
+Our responses to specific comments from Referee A are:
+
+
+\begin{enumerate}
+
+\item We agree with the potential confusion caused by $(u>a)$ and we have replaced it with the more common indicator function $I_\alpha(u)$.
+
+As we are dealing mostly with random variables in the paper, the use of lower case is not likely to cause confusion with realisations of the random variables. In addition we have made it clear if the variables are random as opposed to constants.
+
+\item	We agree and we have named some of the copulas illustrated in Figure 1. Remaining copulas have been specially constructed to exhibit specific dependence structures, i.e. not from any well-known family. Our view is that the main aim of Figure 1 is to illustrate how layer dependence can capture a range of dependence structures, and the actual form of the copula used is of secondary interest.
+
+\item	We agree and we have included Table 1 to illustrate how layer dependence changes for various copulas (independence, perfect dependence) and their transformations.
+
+\item	We agree and we have replaced the expectations with probabilities. We have also inserted the suggested reference.
+
+\item	We agree and we have used indicator functions to express the tail concentration function. We have also included the suggested reference.
+
+\item This was a typographical error and we have removed the comment.
+
+\item	We agree and we have removed the expression.
+
+\item	We agree that many copulas can satisfy the same fitted layer dependence curve. We realise that copula fitting based on layer dependence involves a detailed discussion and warrants a separate paper in order to be properly covered. Hence we have decided to remove this discussion from the paper and instead focus on a complete discussion of layer dependence and its propertes.
+
+\item	We agree and we have included more detailed discussion in section 9.
+
+\item	Please refer to comment 8. We have removed the discussion on copula fitting based on layer dependence from this paper.
+
+\item	Please refer to comment 8. We have removed the discussion on copula fitting based on layer dependence from this paper.
+
+\item	We agree and we have amended the wording in the section.
+
+\end{enumerate}
+
+
+\newpage
+
+\section*{Response to Referee B comments}
+
+We can see Referee B's point of view that the proposed layer dependence may not have been set out in a logical sequence or explained in sufficient detail. Hence we have included a significant amount of preliminary detail and discussion which leads on to the definition of layer dependence. Hopefully this will explain the motivation and usefulness of layer dependence.
+
+Our responses to Referee B's specific comments are:
+
+\begin{enumerate}
+
+\item	Regarding the first comment, we have included additional explanation of how layer dependence captures the dependence structure for each copula illustrated in Figure 1, i.e. by reflecting the scatter of points continuously along the 45 degree line. We are in a way trying to ``catch tail and middle simultaneously", and we are doing so for an infinite number of combinations as alpha varies from 0 to 1.
+
+\item	Regarding the second comment, we understand that significant discussion is required for the factor copula model and how it can be used to model any layer dependence curve. Hence we have removed this discussion so that the current paper focuses on explaining layer dependence and its use as a local dependence measure. The application of layer dependence to copula fitting is best discussed in a separate paper.
+
+\item	Regarding the third comment, we agree and we have used the more common notation $I_\alpha(u)$ for indicator variables.
+
+\end{enumerate}
+
+
+
+
+
+
+\end{document}
