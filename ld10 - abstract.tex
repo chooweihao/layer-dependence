@@ -1,0 +1,116 @@
+\documentclass[authoryear]{elsarticle}
+
+
+\makeatletter
+\def\ps@pprintTitle{%
+\let\@oddhead\@empty
+\let\@evenhead\@empty
+\def\@oddfoot{}%
+\let\@evenfoot\@oddfoot}
+\makeatother
+
+\setlength\arraycolsep{2pt}
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+\usepackage{graphicx}
+\usepackage{amsfonts}
+\usepackage{multirow}
+\usepackage{comment}
+
+%hello there
+%\usepackage{chicago}
+\bibliographystyle{chicago}
+
+
+
+\newcommand{\eps}{\epsilon}
+\newcommand{\var}{{\rm var}}
+\newcommand{\cov}{{\rm cov}}
+\newcommand{\nid}{{\rm NID}}
+\newcommand{\diag}{{\rm diag}}
+\newcommand{\E}{{\mathrm E}}
+\newcommand{\R}{{\mathrm R}}
+\newcommand{\RD}{{\tilde{\mathrm R}}}
+\newcommand{\Q}{{\mathrm Q}}
+\newcommand{\U}{{\mathrm U}}
+\newcommand{\Ex}{{\cal E}}
+\newcommand{\cor}{\mathrm{cor}}
+\newcommand{\tr}{\mathrm{tr}}
+\newcommand{\e}{\mathrm{e}}
+\newcommand{\de}{\mathrm{d}}
+\newcommand{\p}{\mathrm{P}}
+\newcommand{\Ln}{\mathrm{Ln}}
+\newcommand{\sign}{\mathrm{sign}}
+
+\newcommand{\ra}{\varrho}
+
+\newcommand{\minn}{\mathrm{min}_n}
+\newcommand{\maxn}{\mathrm{max}_n}
+
+
+\newcommand{\cq}{\ ,\quad }
+\newcommand{\qq}{\quad \Rightarrow \quad}
+\newcommand{\oq}{\quad \Leftarrow \quad}
+\newcommand{\eq}{\quad \Leftrightarrow \quad}
+
+
+
+\newcommand{\ppo}[1]{|{#1}|^+}
+
+\newcommand{\ssection}[1]{%
+  \section[#1]{\textbf{\uppercase{#1}}}}
+\newcommand{\ssubsection}[1]{%
+  \subsection[#1]{\normalfont\textbf{#1}}}
+
+
+%\renewcommand{\labelenumi}{(\roman{enumi})}
+
+\newcommand{\eref}[1]{(\ref{#1})}
+\newcommand{\fref}[1]{Figure \ref{#1}}
+\newcommand{\sref}[1]{\S\ref{#1}}
+\newcommand{\tref}[1]{Table \ref{#1}}
+\newcommand{\aref}[1]{\ref{#1}}
+
+
+
+\newcommand{\bi}{\begin{itemize}}
+\renewcommand{\i}{\item}
+\newcommand{\ei}{\end{itemize}}
+
+
+\begin{document}
+
+
+
+\begin{frontmatter}
+
+
+
+\title{Layer dependence as a measure of local dependence}
+\author[acst]{Weihao Choo\corref{cor1}}
+\ead{weihao.choo@mq.edu.au}
+\author[acst]{Piet de Jong}
+
+
+
+\address[acst]{Department of Applied Finance and Actuarial Studies Macquarie
+University, NSW 2109, Australia.}
+\cortext[cor1]{Corresponding author}
+
+
+
+
+\begin{abstract}
+A new measure of local dependence called  ``layer dependence" is proposed and analysed. Layer dependence measures the dependence between two random variables at different percentiles in their joint distribution. Layer dependence satisfies coherence properties similar to Spearman's correlation, such as lying between $-1$ and $1$, with $-1$, $0$ and $1$ corresponding to countermonotonicity, independence and comonotonicity, respectively. Spearman's correlation is  a weighted average of layer dependence across all percentiles.  Alternate overall dependence measures are arrived by varying the weights. Layer dependence is an important input to copula modeling by extracting the dependence structure from past data and incorporating expert opinion if necessary.
+\end{abstract}
+
+\begin{keyword}
+Local dependence; rank dependence; Spearman's correlation; layers; conditional tail expectation; concordance.
+\end{keyword}
+
+
+
+\end{frontmatter}
+
+
+
+\end{document}
